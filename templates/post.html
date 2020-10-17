@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <form method ='post' action =''>
+        {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.post.label }}
+          <hr>
+        {{ form.post }}
+
+
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+
+{% endblock content %}
