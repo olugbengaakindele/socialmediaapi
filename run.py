@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, flash
 from forms import Post
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -15,12 +15,14 @@ class postComment(db.Model):
 
     id = db.Column(db.Integer,primary_key= True)
     username = db.Column(db.String(20), nullable=False)
+    platform = db.Column(db.String(100), nullable = False)
     comment = db.Column(db.String(100), nullable=False)
 
-    def __init__(self, username, comment):
+    def __init__(self, username, comment, platform
+                 ):
         self.username = username
         self.comment = comment
-
+        self.platform = platform
 
 @app.route("/home")
 def home():
@@ -33,9 +35,10 @@ def post():
     form = Post()
 
     if form.validate_on_submit():
-        comment = postComment("Olu", comment=form.post.data)
+        comment = postComment("Olu", comment=form.post.data, platform= form.platform.data)
         db.session.add(comment)
         db.session.commit()
+        flash("your comment has been posted and saved in the database")
         return redirect(url_for('post'))
     return render_template("post.html", title="Post Page", form=form)
 
@@ -43,7 +46,9 @@ def post():
 @app.route("/read")
 def read():
     form = Post()
-    return render_template("read.html", title="Read Page", form=form)
+    comments = postComment.query.all()
+
+    return render_template("read.html", title="Read Page", comments = comments)
 
 
 @app.route("/update")

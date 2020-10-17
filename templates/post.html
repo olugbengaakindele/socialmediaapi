@@ -2,18 +2,35 @@
 
 {% block content %}
 <div class="container">
-    <form method ='post' action =''>
-        {{ form.hidden_tag() }}
-      <div class="form-group">
-        {{ form.post.label }}
-          <hr>
-        {{ form.post }}
+    <div class="row">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message | safe }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </div>
+    <div class="row">
+        <form method ='post' action =''>
+            {{ form.hidden_tag() }}
+          <div class="form-group mx-75">
+            {{ form.platform.label }}
+              <hr>
+            {{ form.platform }}
+          </div>
+          <div class="form-group">
+            {{ form.post.label }}
+              <hr>
+            {{ form.post }}
+          </div>
 
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 
-      </div>
-
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
 </div>
 
 

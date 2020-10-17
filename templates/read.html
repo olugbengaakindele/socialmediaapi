@@ -2,6 +2,31 @@
 
 {% block content %}
 
+    <div class="container">
+        {% for post in comments %}
+
+            <div class="row">
+                <div class="col-6 mx-auto">
+                    <div class="card">
+                    <div class="card-header">
+                        {{ post.username }} - {{ post.platform }}
+                    </div>
+                    <div class="card-body">
+                        {{ post.comment }}
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-success">Edit</button>
+                        <button class="btn btn-success">Delete</button>
+                    </div>
+                </div>
+                </div>
+
+
+            </div>
+   <hr>
+        {% endfor %}
+    </div>
+
 
 
 {% endblock content %}
