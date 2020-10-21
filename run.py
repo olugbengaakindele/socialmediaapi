@@ -1,12 +1,16 @@
 from flask import Flask, request, render_template, redirect, url_for, flash
 from forms import Post
 from flask_sqlalchemy import SQLAlchemy
-import os
+import os, tweepy
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(26)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-
+auth = tweepy.OAuthHandler("FwHAW1sucIWbubbFgqOBO4E9J", "FM1bEwQeXY1OzlyEV5mbPJJemcgwzRATYdSVhBVWGif2E9xN1t")
+auth.set_access_token("402615453-jKbIJBxm4jMbi5ZsW6pVnu1BCBBTE8uu8z2YsTcg",
+                      "o0QYCz1dG1niIWZjC2Kw6yhR89o4SROltLuVpbp9MjExM")
+api = tweepy.API(auth)
+                     
 db = SQLAlchemy(app)
 
 
